@@ -14,11 +14,11 @@ def summarize_file(file_path):
         ],
     )
 
-    return response.content.text
+    return "".join(block.text for block in response.content if block.type == "text")
 
 def batch_summarize(file_paths):
     results = {}
-    for i in range(1, len(file_paths)):
+    for i in range(len(file_paths)):
         path = file_paths[i]
         results[path] = summarize_file(path)
     return results
